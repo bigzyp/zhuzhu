@@ -1,0 +1,66 @@
+.anniversary{
+    min-height: 100vh;
+    background-image: url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/pic6.jpeg);
+    background-size: 100% 100%;
+    padding: 50px 0;
+    position: relative;
+    .mask{
+        position: absolute;
+        z-index: 2;
+        left: 0;right: 0;top: 0;bottom: 0;
+        background-color: rgba(255,255,255, 0.6);
+    }
+    .content-wrap{
+        position: relative;
+        z-index: 3;
+
+        .top{
+            width: 600px;height: 300px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow:0px 4px 36px 0px rgba(206,206,206,0.48);
+            margin: 0 auto;
+            margin-bottom: 250px;
+            padding: 20px 40px;
+            .flex{
+                display: flex;height: 200px;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 36px;
+                color: #333;
+                Text{
+                    width: 200px;
+                    text-align: center;
+                    font-size: 100px;
+                    font-weight: bolder;
+                }
+            }
+            .start{
+                color: #999;
+            }
+        }
+        .list{
+            padding: 0 30px;
+            .item{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 30px;
+                height: 120px;
+                border-bottom: 1px solid #999;
+                &:nth-child(1){
+                    border-top: 1px solid #999;
+                }
+                Image{
+                    width: 60px; height: 60px;
+                }
+            }
+        }
+        .add{
+            width: 80px;height: 80px;
+            position: fixed;
+            right: 20px;bottom: 100px;
+            box-shadow:0px 4px 36px 0px rgba(206,206,206,0.48);
+        }
+    }
+}

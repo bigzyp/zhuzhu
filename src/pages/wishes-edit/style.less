@@ -1,0 +1,70 @@
+.wishes-edit{
+    min-height: 100vh;
+    position: relative;
+    background-color: #f0f0f0;
+    padding-bottom: 148px;
+    .item-wrap{
+        color: #333;
+    }
+    .item{
+        padding: 20px 40px;
+        background-color: #fff;
+        margin-bottom: 20px;
+        .label{
+            height: 60px;line-height: 60px;
+            margin-bottom: 20px;
+        }
+        &.flex{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .label{
+                margin-bottom: 0;
+            }
+        }
+    }
+    .item.image-wrap{
+        .wrap{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .image{
+            margin-right: 20px;
+            position: relative;
+            .delete{
+                position: absolute;
+                top: -16px;left: -16px;
+                width: 44px;height: 44px;
+                border-radius: 50%;
+                background-color: #f06292;
+                color: #fff;
+                font-size: 35px;
+                text-align: center;
+                line-height: 40px;
+            }
+        }
+        image{
+            width: 150px;height: 150px;
+        }
+    }
+    .title{
+        height: 200px;
+        background-color: #fff;
+        margin-bottom: 50px;
+        padding-left: 40px;
+        font-size: 40px;
+    }
+    Input{
+        height: 80px;border: 1px solid #eee;
+        padding-left: 20px;
+    }
+    Button{
+        background-color: #f06292;
+        color: #fff;
+        border-radius: 0;
+        position: fixed;
+        bottom: 68px;
+        width: 100%;
+    }
+}

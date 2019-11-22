@@ -1,0 +1,81 @@
+.allwishes{
+    padding-top: 30px;
+    background-image: url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/pic6.jpeg);
+    background-size: 100% 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    .progress_wrap{
+        width: 600px;height: 60px;
+        margin: 0 auto;
+        font-size: 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 50px;
+        .progress_bar{
+            background-color: #f6f6f6;
+            width: 400px;
+            position: relative;
+            border-radius: 20px;
+            text-align: center;
+            color: #333;
+            .done{
+                color: #fff;
+                background-color: #f06292;
+                position: absolute;
+                left: 0;top: 0;bottom: 0;
+                border-radius: 20px;
+                right: 82%;
+            }
+        }
+    }
+    .list{
+        width: 600px;margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .section{
+            width: 280px;height: 280px;
+            display: inline-block;
+            background-color: #F8BBD0;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            line-height: 280px;
+            text-align: center;
+            color: #fff;
+            box-shadow:0px 4px 36px 0px rgba(206,206,206,0.48);
+            position: relative;
+            overflow: hidden;
+            background-image: url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/card_default.png);
+            background-size: cover;
+            .mask{
+                position: absolute;
+                left: 0;right: 0; bottom: 0;top: 0;
+                background-color: rgba(0,0,0,0.4);
+                z-index: 2;
+            }
+            .text{
+                z-index: 3;
+                position: relative;
+            }
+        }
+        .add{
+            Image{
+                width: 100px;height: 100px;
+                z-index: 3;
+                position: absolute;
+                top: 90px;left: 90px;
+            }
+        }
+    }
+    .mask{
+        position: absolute;
+        z-index: 2;
+        left: 0;right: 0;top: 0;bottom: 0;
+        background-color: rgba(255,255,255, 0.6);
+    }
+    .content-wrap{
+        position: relative;
+        z-index: 3;
+    }
+}

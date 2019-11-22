@@ -1,0 +1,146 @@
+.scroll-view{
+  height: 100vh;
+  background-image: url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/pic4.jpeg);
+  background-size: cover;
+  .mask{
+    position: fixed;
+    z-index: 2;
+    left: 0;right: 0;top: 0;bottom: 0;
+    background-color: rgba(255,255,255, 0.6);
+  }
+}
+.index {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 50px 30px;
+  .top{
+    display: flex;
+    justify-content: space-between;
+    .top-left{
+      .img{
+        width: 120px;height: 120px;
+        border-radius: 50%;
+        background-size: 100% 100%;
+        background-color: #fff;
+      }
+      .weather{
+        font-size: 24px;
+        color: #999;
+        width: 120px;height: 60px;line-height: 40px;
+        padding-left: 80px;
+        margin-top: 10px;
+        // background-image: url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/cloudy.png);
+        background-repeat: no-repeat;
+        background-size: 50px 50px;
+        &.no{
+          padding-left: 0;
+          background-image: none;
+          text-align: center;
+        }
+      }
+    }
+    .top-middle{
+      font-size: 28px;
+      color: #333;
+      width: 400px; 
+      .text{
+        height: 60px;
+        line-height: 60px;
+        position: relative;
+      }
+      .left{
+        text-align: left;
+        margin-left: 60px;
+      }
+      .left::before{
+        content: '';
+        position: absolute;
+        width: 50px;height: 50px;
+        left: -50px;top: 5px;
+        background-repeat: no-repeat;
+        background-size: 50px 50px;
+        background-image: url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/laba.png);
+      }
+      .right{
+        margin-right: 60px;
+        text-align: right;
+      }
+      .right::after{
+        content: '';
+        position: absolute;
+        width: 50px;height: 50px;
+        right: -50px;top: 5px;
+        background-repeat: no-repeat;
+        background-size: 50px 50px;
+        background-image: url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/laba.png);
+        transform: rotateY(180deg);
+      }
+    }
+  }
+  .middle{
+    height: 300px;
+    margin: 30px 0;
+    text-align: center;
+    color: #333;
+    .days{
+      font-size: 140px;
+      font-weight: bolder;
+      margin-right: 20px;
+    }
+    .start{
+      color: #999;
+    }
+  }
+  .bottom{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    .item{
+      width: 320px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #333;
+      box-shadow:0px 4px 36px 0px rgba(206,206,206,0.48);
+      background-color: #FFF;
+      padding: 10px 20px;
+      border-radius: 20px;
+      .icon{
+        width: 60px;height: 60px;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .title{
+        height: 80px;line-height: 80px;
+      }
+      .days{
+        height: 40px;line-height: 40px;
+        font-size: 25px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .content-wrap{
+    position: relative;
+    z-index: 3;
+    .enchance{
+      width: 190px;
+      padding-left: 70px;
+      font-size: 28px;
+      height: 60px;line-height: 60px;
+      border: 1px solid #333;
+      border-radius: 20px 0 0 20px;
+      border-right: none;
+      position: fixed;
+      right: 0;bottom: 100px;
+      background-image: url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/enchance.png);
+      background-repeat: no-repeat;
+      background-position: 10px 5px;
+      background-size: 50px 50px;
+      color: #f06292;
+      z-index: 3;
+    }
+  }
+}

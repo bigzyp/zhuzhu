@@ -1,0 +1,87 @@
+{
+	"miniprogramRoot": "dist/",
+	"projectname": "zhuzhutool",
+	"description": "",
+	"appid": "wx52d179af061637c9",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "心愿宝盒",
+					"pathName": "pages/allwishes/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "纪念日",
+					"pathName": "pages/anniversary/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "编辑纪念日",
+					"pathName": "pages/anniversary-edit/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "ing",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "编辑心愿",
+					"pathName": "pages/wishes-edit/index",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}
