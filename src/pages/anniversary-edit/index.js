@@ -39,11 +39,13 @@ class AnniversaryEdit extends Component {
   formSubmit = e => {
     const { value } = e.detail;
     const { commemorationDayId } = this.state;
+    value.homeDisplay = Number(value.homeDisplay);
+    value.repeatTime = Number(value.repeatTime);
     Taro.showLoading({
       title: '保存中～'
     })
     const submitFn = commemorationDayId ? this.props.dispatchUpdate : this.props.dispatchSave
-    submitFn({ ...value }).then(() => {
+    submitFn({ ...value, commemorationDayId }).then(() => {
       this.props.dispatchGetList().then(() => {
         Taro.navigateBack();
       })

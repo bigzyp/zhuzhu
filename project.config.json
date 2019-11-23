@@ -80,6 +80,20 @@
 					"pathName": "pages/wishes-edit/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/user/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "邀请",
+					"pathName": "pages/invite/index",
+					"query": "refereeId=1",
+					"scene": null
 				}
 			]
 		}

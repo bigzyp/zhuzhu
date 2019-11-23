@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image, Label } from '@tarojs/components'
+import { View, Image, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import * as acitons from '@store/user/action'
 import GetUserInfo from '@components/getUserInfo'
@@ -19,24 +19,15 @@ class Login extends Component {
     showGetPhone: false
   }
 
-  componentDidShow () {
-    
+  onShareAppMessage () {
+    const { userInfo: { user } } = this.props;
+    return {
+      title: '亲爱的，一起来玩鸭～',
+      path: '/pages/invite/index?refereeId=' + user.userId,
+      imageUrl: 'https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/share.jpeg'
+    }
   }
-
-  startRecord = () => {
-    const rm = Taro.getRecorderManager()
-    // Taro.openSetting()
-    rm.start({
-      success: (e) => {
-        console.log(e)
-      },
-      failed: (e) => {
-        console.log(e)
-      }
-    })
-  }
-
-  showGetPhone () {
+  showGetPhone = () => {
     this.setState({
       showGetPhone: true
     })
@@ -47,14 +38,8 @@ class Login extends Component {
     })
   }
 
-  getUserInfo = () => {
-    // const { dispatchUser } = this.props
-    // const { userInfo } = e.detail
-    // dispatchUser(userInfo)
-    // this.hideGetPhone()
-  }
-  login = (e) => {
-    console.log(e)
+  login = () => {
+    console.log('login回调')
     this.setState({
       showGetPhone: false
     })
@@ -62,10 +47,10 @@ class Login extends Component {
 
   render () {
     const { statusBarHeight, showGetPhone } = this.state
-    const { userInfo, login } = this.props
+    const { userInfo: { user, joinUser }, login } = this.props
     return (
       <View>
-        {!!showGetPhone && <GetUserInfo onCancle={this.hideGetPhone} onConfirm={this.getUserInfo} onLoginBack={this.login} />}
+        {!!showGetPhone && <GetUserInfo onCancle={this.hideGetPhone} onLoginBack={this.login} />}
         <View className='mine_banner' style={{paddingTop: `${statusBarHeight}px`}}>
             <View className='mine_banner_title'>我的</View>
             {/* <Image src='https://oss.aircourses.com/web/ac_write/mine_banner_bg.png' className='mine_banner_bg' /> */}
@@ -85,19 +70,19 @@ class Login extends Component {
           <View className='mine_user_info' onClick='goToSet'>
             <View className='mine_info'>
               <View className='img_wrap'>
-                <View className='head_img img1' style={{backgroundImage: `url(${userInfo.headPortrait})`}} />
-                <View className='head_img img2' style={{backgroundImage: 'url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/portrait.png)'}} />
+                <View className='head_img img1' style={{backgroundImage: `url(${user.headPortrait})`}} />
+                <View className='head_img img2' style={{backgroundImage: `url(${joinUser.headPortrait})`}} />
               </View>
-              <View className='mine_user_name'>{userInfo.nickname}</View>
+              <View className='mine_user_name'>{user.nickname}</View>
             </View>
           </View>
         }
-        <View className='mine_logistics' onClick={this.login}>
-            <View className='mine_logistics_box'> 
-                <Image className='icon icon_pass' src='https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/yaoqing.png' />
-                <Label>邀请TA</Label>
-            </View>
-            <View className='icon icon_arrow' />
+        <View className='mine_item'>
+          <Button className='mine_item_box' openType='share'> 
+            <Image className='icon icon_pass' src='https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/yaoqing.png' />
+            <View className='text'>邀请TA</View>
+          </Button>
+          <View className='icon icon_arrow' />
         </View>
       </View>
     )

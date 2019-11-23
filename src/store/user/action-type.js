@@ -1,3 +1,4 @@
 export const USER_LOGIN = 'USER_LOGIN'
+export const USER_INVITE = 'USER_INVITE'
 export const USER_LOGOUT = 'USER_LOGOUT'
 export const USER_UPDATE_WEATHER = 'USER_UPDATE_WEATHER'

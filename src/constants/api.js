@@ -4,6 +4,7 @@ export const host = 'http://49.235.49.150:8888'
 // user
 export const API_USER = `${host}/xhr/user/getDetail.json`
 export const API_USER_LOGIN = `${host}/user/wxAppLogin`
+export const API_USER_INVITE = `${host}/user/wxAppReferee`
 export const API_CHECK_LOGIN = `${host}/xhr/u/checkLogin.json`
 
 // anniversary

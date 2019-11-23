@@ -18,7 +18,7 @@ class Anniversary extends Component {
   }
 
   componentDidShow(){
-    
+    this.props.dispatchGetList();
   }
 
   goEdit = (commemorationDayId) => {

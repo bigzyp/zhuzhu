@@ -16,7 +16,7 @@ function updateStorage(data = {}) {
     }),
     Taro.setStorage({
       key: 'userId',
-      data: data.userId
+      data: data.user.userId
     })
   ])
 }
@@ -29,7 +29,7 @@ function updateStorage(data = {}) {
 export default async function request(options) {
   const { url, payload, method = 'GET', showToast = true, autoLogin = true } = options
   const userId = await getStorage('userId');
-  payload.userId = userId;
+  if(userId) payload.userId = userId;
   const token = '';
   const header = token ? { 'WX-PIN-SESSION': token, 'X-WX-3RD-Session': token } : {}
   if (method === 'POST') {

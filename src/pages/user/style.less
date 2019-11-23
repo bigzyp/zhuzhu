@@ -22,6 +22,7 @@
 .mine_user_info {
     width: 500px; height: 200px;
     margin: 0 auto;
+    margin-bottom: 68px;
 }
 .img_wrap{
     margin: 0 auto;
@@ -59,10 +60,6 @@
     text-overflow: ellipsis;
 
 }
-.mine_edit {
-    display: flex;
-    align-items: center;
-}
 .icon{
     background-size: 100% 100%;
     &.icon_arrow {
@@ -76,19 +73,25 @@
         height: 64px;
     }
 }
-.mine_logistics {
-    width: 100%;
-    margin-top: 68px;
+.mine_item {
     padding: 0 48px;
+    height: 100px;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-}
-.mine_logistics_box {
-    display: flex;
     align-items: center;
+    border-bottom: 1px solid #eee;
+    Button{
+        width: 100%;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        &::after{
+            border: none;
+        }
+    }
 }
-.mine_logistics_box label{
+.mine_item_box .text{
     color: #232220;
     font-size:32px;
     font-weight:400;

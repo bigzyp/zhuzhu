@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, ScrollView } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
-import { dispatchGetList } from '@store/anniversary/action';
+import { dispatchGetList } from '@store/home/action';
 import { dispatchWeather } from '@store/user/action';
 import { computeDays } from '@utils/tools';
 import request from '@utils/request';
@@ -9,7 +9,7 @@ import { WEATHER_TIPS } from '@constants/constant';
 
 import './style.less'
 
-@connect(({ user, anniversary }) => ({ ...user, ...anniversary }), { dispatchGetList, dispatchWeather })
+@connect(({ user, home }) => ({ ...user, ...home }), { dispatchGetList, dispatchWeather })
 class Index extends Component {
 
   config = {
@@ -18,7 +18,7 @@ class Index extends Component {
   
   componentDidShow(){
     const { login: isLogin } = this.props;
-    isLogin && this.props.dispatchGetList();
+    isLogin && this.props.dispatchGetList({ homeDisplay: 1 });
   }
 
   goAnniversary = () => {
@@ -46,7 +46,7 @@ class Index extends Component {
   }
 
   render () {
-    const { userInfo, anniversaryList, weather } = this.props;
+    const { userInfo: { user, joinUser }, anniversaryList, weather } = this.props;
     return (
       <ScrollView className='scroll-view' scrollY>
         <View className='mask'></View>
@@ -54,7 +54,7 @@ class Index extends Component {
           <View className='content-wrap'>
             <View className='top'>
               <View className='top-left'>
-                <View className='img' style={{backgroundImage: `url(${userInfo.avatarUrl || ''})`}}></View>
+                <View className='img' style={{backgroundImage: `url(${user.headPortrait || ''})`}}></View>
                 { weather.now ?
                   <View className='weather' style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/cond/${weather.now.cond_code}.png)`}} >{`${weather.now.tmp}℃`}</View> :
                   <View className='weather no' onClick={this.getWeather}>获取天气</View>
@@ -67,7 +67,7 @@ class Index extends Component {
                 <View className='text right'>天气冷啦，要加衣服了！</View>
               </View>
               <View className='top-left'>
-                <View className='img'></View>
+                <View className='img' style={{backgroundImage: `url(${joinUser.headPortrait || ''})`}}></View>
                 <View className='weather'>22℃</View>
               </View>
             </View>
