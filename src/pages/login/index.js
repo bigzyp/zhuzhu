@@ -10,7 +10,7 @@ import './style.less'
 class Invite extends Component {
 
   config = {
-    navigationBarTitleText: '邀请'
+    navigationBarTitleText: '注册/登录'
   }
   state = {
     showGetPhone: false
@@ -25,9 +25,9 @@ class Invite extends Component {
       showGetPhone: false
     })
   }
-  goAllwishes = () => {
-    Taro.navigateTo({
-      url: '/pages/allwishes/index'
+  login = () => {
+    Taro.switchTab({
+      url: '/pages/index/index'
     })
   }
 
@@ -36,8 +36,8 @@ class Invite extends Component {
     const { showGetPhone } = this.state;
     return (
       <View className='invite'>
-        {!!showGetPhone && <GetUserInfo onCancle={this.hideGetPhone} onLoginBack={this.hideGetPhone} loginOptions={{ refereeId }} />}
-        <View className='btn' onClick={this.showGetPhone}>接受邀请</View>
+        {!!showGetPhone && <GetUserInfo onCancle={this.hideGetPhone} onLoginBack={this.login} loginOptions={{ refereeId }} />}
+        <View className='btn' onClick={this.showGetPhone}>{refereeId ? '接受邀请' : '点击登录'}</View>
       </View>
     )
   }

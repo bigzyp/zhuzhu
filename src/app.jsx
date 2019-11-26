@@ -1,9 +1,8 @@
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
-import configStore from './store'
-
 import Index from './pages/index/index'
+import configStore from './store'
 
 import './app.less'
 
@@ -22,6 +21,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/loading/index',
       'pages/index/index',
       'pages/wishes/index',
       'pages/user/index',
@@ -29,7 +29,7 @@ class App extends Component {
       'pages/anniversary/index',
       'pages/anniversary-edit/index',
       'pages/wishes-edit/index',
-      'pages/invite/index',
+      'pages/login/index',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -69,18 +69,6 @@ class App extends Component {
       }
     }
   }
-
-  componentDidMount () {
-    
-  }
-
-  componentDidShow () {
-    console.log('app shows')
-  }
-
-  componentDidHide () {}
-
-  componentDidCatchError () {}
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数

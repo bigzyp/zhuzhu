@@ -26,7 +26,7 @@ class AnniversaryEdit extends Component {
 
   onDateChange = e => {
     this.setState({
-      commemorationTime: e.detail.value
+      commemorationTime: new Date(e.detail.value)
     })
   }
 
@@ -63,6 +63,7 @@ class AnniversaryEdit extends Component {
       repeatTime,
       detail
     } = this.state;
+    const date = new Date(commemorationTime);
     return (
       <View className='anniversary-edit'>
         <Form onSubmit={this.formSubmit} >
@@ -72,7 +73,7 @@ class AnniversaryEdit extends Component {
               <View className='label'>日期</View>
               <Picker name='commemorationTime' mode='date' onChange={this.onDateChange}>
                 <View className='picker'>
-                  { commemorationTime }
+                  { `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}` }
                 </View>
               </Picker>
             </View>

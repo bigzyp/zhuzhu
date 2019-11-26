@@ -40,7 +40,6 @@ export default class GetUserInfo extends Component {
 		})
 	}
 	render () {
-		console.log(this.props)
 		return (
 			<View className='mask'>
 				<View className='auto_box'>

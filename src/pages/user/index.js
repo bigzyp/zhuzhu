@@ -39,9 +39,17 @@ class Login extends Component {
   }
 
   login = () => {
-    console.log('login回调')
     this.setState({
       showGetPhone: false
+    })
+  }
+
+  logout = () => {
+    this.props.dispatchLogout();
+    Taro.removeStorageSync('userInfo');
+    Taro.removeStorageSync('userId');
+    Taro.navigateTo({
+      url: '/pages/login/index'
     })
   }
 
@@ -84,6 +92,7 @@ class Login extends Component {
           </Button>
           <View className='icon icon_arrow' />
         </View>
+        { login && <View className='logout' onClick={this.logout}>退出登录</View> }
       </View>
     )
   }

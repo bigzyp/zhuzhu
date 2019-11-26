@@ -1,7 +1,12 @@
 import Taro from '@tarojs/taro';
 import { USER_UPDATE_WEATHER, USER_LOGIN, USER_INVITE, USER_LOGOUT } from './action-type';
 
-const userInfo = Taro.getStorageSync('userInfo') || { user: {}, joinUser: {} };
+const _userInfo = Taro.getStorageSync('userInfo');
+const userInfo = {
+  user: {},
+  joinUser: {},
+  ..._userInfo
+}
 
 const INITIAL_STATE = {
   userInfo,
@@ -16,7 +21,7 @@ export default function user (state = INITIAL_STATE, action) {
       return {
         ...state,
         userInfo: {
-          ...state.login,
+          ...state.userInfo,
           ...action.payload,
         },
         login: true
@@ -31,7 +36,12 @@ export default function user (state = INITIAL_STATE, action) {
       }
     case USER_LOGOUT:
       return {
-        ...INITIAL_STATE
+        userInfo: {
+          user: {},
+          joinUser: {}
+        },
+        weather: {},
+        login: false
       }
     default:
        return state

@@ -15,6 +15,13 @@ class Index extends Component {
   config = {
     navigationBarTitleText: '首页'
   }
+
+  onShareAppMessage () {
+    return {
+      title: '发现一个hin好玩的小程序！',
+      imageUrl: 'https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/share.jpeg'
+    }
+  }
   
   componentDidShow(){
     const { login: isLogin } = this.props;
@@ -46,7 +53,7 @@ class Index extends Component {
   }
 
   render () {
-    const { userInfo: { user, joinUser }, anniversaryList, weather } = this.props;
+    const { userInfo: { user, joinUser }, anniversaryList, weather, login } = this.props;
     return (
       <ScrollView className='scroll-view' scrollY>
         <View className='mask'></View>
@@ -66,16 +73,20 @@ class Index extends Component {
                 }
                 <View className='text right'>天气冷啦，要加衣服了！</View>
               </View>
-              <View className='top-left'>
-                <View className='img' style={{backgroundImage: `url(${joinUser.headPortrait || ''})`}}></View>
-                <View className='weather'>22℃</View>
+              { joinUser.headPortrait &&
+                <View className='top-left'>
+                  <View className='img' style={{backgroundImage: `url(${joinUser.headPortrait || ''})`}}></View>
+                  <View className='weather'>22℃</View>
+                </View>
+              }
+            </View>
+            { login &&
+              <View className='middle'>
+                <Text className='days'>999</Text>
+                <Text className='text'>天</Text>
+                <View className='start'>起始日：2018年01月01日</View>
               </View>
-            </View>
-            <View className='middle'>
-              <Text className='days'>999</Text>
-              <Text className='text'>天</Text>
-              <View className='start'>起始日：2018年01月01日</View>
-            </View>
+            }
             <View className='bottom'>
               { anniversaryList.map((ele, index) => (
                 <View className='item' key={String(index)}>
