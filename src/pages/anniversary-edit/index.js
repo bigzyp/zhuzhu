@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Input, Switch, Picker, Button, Form } from '@tarojs/components';
+import Modal from '@components/modal';
 import { connect } from '@tarojs/redux';
 import * as actions from '@store/anniversary/action';
 import { ANNIVERSARY_TYPE } from '@constants/constant';
@@ -12,28 +13,33 @@ class AnniversaryEdit extends Component {
   config = {
     navigationBarTitleText: '编辑纪念日'
   }
-
   constructor(props){
     super(props);
     const { commemorationDayId } = this.$router.params;
     const { anniversaryDetail } = props;
     this.state = {
+      showModal: false,
       dayType: 0,
       commemorationTime: '2019-01-01',
       ...anniversaryDetail[commemorationDayId]
     }
   }
-
   onDateChange = e => {
     this.setState({
       commemorationTime: new Date(e.detail.value)
     })
   }
-
+  
   onChange = e => {
     this.setState({
       dayType: e.detail.value
     })
+  }
+  showModal = () => {
+    this.setState({ showModal: true });
+  }
+  hideModal = () => {
+    this.setState({ showModal: false });
   }
 
   formSubmit = e => {
@@ -46,9 +52,23 @@ class AnniversaryEdit extends Component {
     })
     const submitFn = commemorationDayId ? this.props.dispatchUpdate : this.props.dispatchSave
     submitFn({ ...value, commemorationDayId }).then(() => {
-      this.props.dispatchGetList().then(() => {
-        Taro.navigateBack();
-      })
+      Taro.navigateBack();
+    }).finally(() => {
+      Taro.hideLoading();
+    });
+  }
+
+  delete = () => {
+    const { commemorationDayId } = this.state;
+    this.hideModal();
+    Taro.showLoading({
+      title: '删除中～'
+    })
+    this.props.dispatchUpdate({
+      commemorationDayId,
+      state: 2
+    }).then(() => {
+      Taro.navigateBack();
     }).finally(() => {
       Taro.hideLoading();
     });
@@ -61,7 +81,9 @@ class AnniversaryEdit extends Component {
       title,
       homeDisplay,
       repeatTime,
-      detail
+      detail,
+      commemorationDayId,
+      showModal
     } = this.state;
     const date = new Date(commemorationTime);
     return (
@@ -98,8 +120,18 @@ class AnniversaryEdit extends Component {
               <Input className='detail' name='detail' placeholder='请输入描述' value={detail} />
             </View>
           </View>
-          <Button formType='submit'>保存</Button>
+          {commemorationDayId && <View className='delete' onClick={this.showModal}>删除纪念日</View>}
+          <Button className='btn-save' formType='submit'>保存</Button>
         </Form>
+        {!!showModal && 
+          <Modal
+            text='确定删除这个纪念日咩？'
+            cancelText='取消'
+            confirmText='删掉'
+            onConfirm={this.delete}
+            onCancel={this.hideModal}
+          />
+        }
       </View>
     )
   }

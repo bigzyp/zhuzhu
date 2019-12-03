@@ -1,4 +1,4 @@
-.scroll-view{
+.out-wrap{
   height: 100vh;
   background-image: url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/pic4.jpeg);
   background-size: cover;
@@ -12,10 +12,11 @@
 .index {
   width: 100%;
   box-sizing: border-box;
-  padding: 50px 30px;
+  padding: 80px 30px;
   .top{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 620px;
     .top-left{
       .img{
         width: 120px;height: 120px;
@@ -77,25 +78,28 @@
       }
     }
   }
-  .middle{
-    height: 300px;
-    margin: 30px 0;
-    text-align: center;
-    color: #333;
-    .days{
-      font-size: 140px;
-      font-weight: bolder;
-      margin-right: 20px;
-    }
-    .start{
-      color: #999;
-    }
-  }
+  // .middle{
+  //   height: 300px;
+  //   margin: 30px 0;
+  //   text-align: center;
+  //   color: #333;
+  //   .days{
+  //     font-size: 140px;
+  //     font-weight: bolder;
+  //     margin-right: 20px;
+  //   }
+  //   .start{
+  //     color: #999;
+  //   }
+  // }
   .bottom{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 20px 0;
+    max-height: 400px;
+    position: sticky;
+    top: 1300px;
     .item{
       width: 320px;
       margin-bottom: 20px;

@@ -70,6 +70,10 @@ class App extends Component {
     }
   }
 
+  componentDidMount(){
+    Taro.setStorage({ key: 'systemInfo', data: Taro.getSystemInfoSync() });
+  }
+
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
   render () {

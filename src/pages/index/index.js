@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, ScrollView } from '@tarojs/components';
+import { View, ScrollView } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
 import { dispatchGetList } from '@store/home/action';
 import { dispatchWeather } from '@store/user/action';
@@ -53,9 +53,9 @@ class Index extends Component {
   }
 
   render () {
-    const { userInfo: { user, joinUser }, anniversaryList, weather, login } = this.props;
+    const { userInfo: { user, joinUser }, anniversaryList, weather } = this.props;
     return (
-      <ScrollView className='scroll-view' scrollY>
+      <ScrollView className='out-wrap' scrollY>
         <View className='mask'></View>
         <View className='index'>
           <View className='content-wrap'>
@@ -80,13 +80,13 @@ class Index extends Component {
                 </View>
               }
             </View>
-            { login &&
+            {/* { login &&
               <View className='middle'>
                 <Text className='days'>999</Text>
                 <Text className='text'>天</Text>
                 <View className='start'>起始日：2018年01月01日</View>
               </View>
-            }
+            } */}
             <View className='bottom'>
               { anniversaryList.map((ele, index) => (
                 <View className='item' key={String(index)}>
@@ -98,8 +98,38 @@ class Index extends Component {
                 </View>
               ))
               }
+              { anniversaryList.map((ele, index) => (
+                <View className='item' key={String(index)}>
+                  <View>
+                    <View className='title'>{ ele.title }</View>
+                    <View className='days'>{ computeDays({ target: ele.commemorationTime, isRepeat: ele.repeatTime }) }</View>
+                  </View>
+                  <View className='icon' style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/type/${ele.dayType}.png)`}}></View>
+                </View>
+              ))
+              }
+              { anniversaryList.map((ele, index) => (
+                <View className='item' key={String(index)}>
+                  <View>
+                    <View className='title'>{ ele.title }</View>
+                    <View className='days'>{ computeDays({ target: ele.commemorationTime, isRepeat: ele.repeatTime }) }</View>
+                  </View>
+                  <View className='icon' style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/type/${ele.dayType}.png)`}}></View>
+                </View>
+              ))
+              }
+              { anniversaryList.map((ele, index) => (
+                <View className='item' key={String(index)}>
+                  <View>
+                    <View className='title'>{ ele.title }</View>
+                    <View className='days'>{ computeDays({ target: ele.commemorationTime, isRepeat: ele.repeatTime }) }</View>
+                  </View>
+                  <View className='icon' style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/type/${ele.dayType}.png)`}}></View>
+                </View>
+              ))
+              }
             </View>
-            <View className='enchance' onClick={this.goAnniversary}>值得纪念</View>
+            {/* <View className='enchance' onClick={this.goAnniversary}>值得纪念</View> */}
           </View>
         </View>
       </ScrollView>

@@ -13,7 +13,7 @@ export default class Modal extends Component {
 	}
 	render () {
 		const {
-			title,
+			title = '提示',
 			text,
 			type,
 			confirmText = '确认',

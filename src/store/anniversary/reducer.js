@@ -24,13 +24,7 @@ export default function anniversary (state = INITIAL_STATE, action) {
         }
       }
     case ANNIVERSARY_SAVE:
-      return {
-        ...INITIAL_STATE
-      }
     case ANNIVERSARY_UPDATE:
-      return {
-        ...INITIAL_STATE
-      }
     default:
        return state
   }

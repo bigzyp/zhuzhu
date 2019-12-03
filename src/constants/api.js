@@ -1,5 +1,5 @@
 
-export const host = 'http://49.235.49.150:8888'
+export const host = 'https://api.zengyangping.cn'
 
 // user
 export const API_USER = `${host}/xhr/user/getDetail.json`

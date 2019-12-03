@@ -4,13 +4,13 @@
 	"description": "",
 	"appid": "wx52d179af061637c9",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": false,
-		"postcss": false,
-		"minified": false,
+		"postcss": true,
+		"minified": true,
 		"newFeature": true,
 		"coverView": true,
-		"autoAudits": false,
+		"autoAudits": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -64,7 +64,7 @@
 					"id": 2,
 					"name": "编辑纪念日",
 					"pathName": "pages/anniversary-edit/index",
-					"query": "",
+					"query": "commemorationDayId=1",
 					"scene": null
 				},
 				{
