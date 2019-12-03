@@ -36,6 +36,11 @@ class Wishes extends Component {
       url: '/pages/allwishes/index'
     })
   }
+  addWishes = () => {
+    Taro.navigateTo({
+      url: '/pages/wishes-edit/index'
+    })
+  }
 
   render () {
     const { showGetPhone } = this.state
@@ -45,6 +50,7 @@ class Wishes extends Component {
         <View className='mask'></View>
         <Swiper
           className='swiper_wrap'
+          onClick={this.goAllwishes}
         >
         <SwiperItem>
           <View className='section section1'>
@@ -80,7 +86,7 @@ class Wishes extends Component {
           </View>
         </SwiperItem>
       </Swiper>
-        <View className='enchance' onClick={this.goAllwishes}>心愿宝盒</View>
+        <View className='enchance' onClick={this.addWishes}>心愿宝盒</View>
       </View>
     )
   }
