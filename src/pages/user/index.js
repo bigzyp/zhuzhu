@@ -23,7 +23,7 @@ class Login extends Component {
     const { userInfo: { user } } = this.props;
     return {
       title: '亲爱的，一起来玩鸭～',
-      path: '/pages/invite/index?refereeId=' + user.userId,
+      path: 'pages/loading/index?refereeId=' + user.userId,
       imageUrl: 'https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/share.jpeg'
     }
   }

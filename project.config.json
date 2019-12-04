@@ -94,6 +94,13 @@
 					"pathName": "pages/invite/index",
 					"query": "refereeId=1",
 					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "loading",
+					"pathName": "pages/loading/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

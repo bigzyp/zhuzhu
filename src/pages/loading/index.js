@@ -10,7 +10,13 @@ class Invite extends Component {
   }
   componentDidMount(){
     const userId = Taro.getStorageSync('userId');
+    const { refereeId } = this.$router.params;
     setTimeout(() => {
+      if(refereeId) {
+        return Taro.navigateTo({
+          url: '/pages/login/index?refereeId='+refereeId
+        })
+      }
       if(!userId){
         Taro.navigateTo({
           url: '/pages/login/index'

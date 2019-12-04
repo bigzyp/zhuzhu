@@ -2,14 +2,14 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, ScrollView } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
 import { dispatchGetList } from '@store/home/action';
-import { dispatchWeather } from '@store/user/action';
+import { dispatchWeather, dispatchUpdate } from '@store/user/action';
 import { computeDays } from '@utils/tools';
 import request from '@utils/request';
 import { WEATHER_TIPS } from '@constants/constant';
 
 import './style.less'
 
-@connect(({ user, home }) => ({ ...user, ...home }), { dispatchGetList, dispatchWeather })
+@connect(({ user, home }) => ({ ...user, ...home }), { dispatchGetList, dispatchWeather, dispatchUpdate })
 class Index extends Component {
 
   config = {
@@ -19,13 +19,15 @@ class Index extends Component {
   onShareAppMessage () {
     return {
       title: '发现一个hin好玩的小程序！',
-      imageUrl: 'https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/share.jpeg'
+      imageUrl: 'https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/share.jpeg',
+      path: 'pages/loading/index'
     }
   }
   
   componentDidShow(){
     const { login: isLogin } = this.props;
     isLogin && this.props.dispatchGetList({ homeDisplay: 1 });
+    this.initWeatherInfo();
   }
 
   goAnniversary = () => {
@@ -39,26 +41,37 @@ class Index extends Component {
     })
   }
 
-  getWeather = () => {
+  initWeatherInfo = async () => {
+    const { userInfo: { user: { address: myAddress }, joinUser: { address: joinAddress } } } = this.props;
+    const myWeather = await this.getWeather(myAddress);
+    const joinWeather = await this.getWeather(joinAddress);
+    this.props.dispatchWeather({ myWeather, joinWeather });
+  }
+
+  getWeather = (location) => {
+    return request({ 
+      url: `https://free-api.heweather.net/s6/weather/now`,
+      method: 'GET',
+      payload: {
+        location,
+        key: '5fe1e7efe30e43a2bb2eee4451913d2c'
+      }
+    })
+  }
+
+  getLocation = () => {
     Taro.getLocation({
-      success: (data) => {
+      success: async (data) => {
         const { latitude, longitude } = data;
-        request({ 
-          url: `https://free-api.heweather.net/s6/weather/now`,
-          method: 'GET',
-          payload: {
-            location: `${longitude},${latitude}`,
-            key: '5fe1e7efe30e43a2bb2eee4451913d2c'
-          }
-        }).then((res) => {
-          this.props.dispatchWeather({ ...res })
-        })
+        const address  = latitude + ',' + longitude;
+        this.props.dispatchUpdate({ address });
+        this.props.dispatchWeather({ myWeather: await this.getWeather(address) });
       }
     })
   }
 
   render () {
-    const { userInfo: { user, joinUser }, anniversaryList, weather } = this.props;
+    const { userInfo: { user, joinUser }, anniversaryList, weather: { myWeather, joinWeather } } = this.props;
     return (
       <View className='out-wrap'>
         <View className='mask'></View>
@@ -67,21 +80,26 @@ class Index extends Component {
             <View className='top'>
               <View className='top-left'>
                 <View className='img' style={{backgroundImage: `url(${user.headPortrait || ''})`}}></View>
-                { weather.now ?
-                  <View className='weather' style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/cond/${weather.now.cond_code}.png)`}} >{`${weather.now.tmp}℃`}</View> :
-                  <View className='weather no' onClick={this.getWeather}>获取天气</View>
+                { myWeather.now ?
+                  <View className='weather' style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/cond/${myWeather.now.cond_code}.png)`}} >{`${myWeather.now.tmp}℃`}</View> :
+                  <View className='weather no' onClick={this.getLocation}>获取天气</View>
                 }
               </View>
               <View className='top-middle'>
-                { weather.now &&
-                  <View className='text left'>{WEATHER_TIPS[Math.floor(weather.now.tmp/5)]}</View>
+                { myWeather.now &&
+                  <View className='text left'>{WEATHER_TIPS[Math.floor(myWeather.now.tmp/5)]}</View>
                 }
-                <View className='text right'>天气冷啦，要加衣服了！</View>
+                { joinWeather.now &&
+                  <View className='text left'>{WEATHER_TIPS[Math.floor(joinWeather.now.tmp/5)]}</View>
+                }
               </View>
               { joinUser.headPortrait &&
                 <View className='top-left'>
                   <View className='img' style={{backgroundImage: `url(${joinUser.headPortrait || ''})`}}></View>
-                  <View className='weather'>22℃</View>
+                  { joinWeather.now ?
+                    <View className='weather' style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/cond/${joinWeather.now.cond_code}.png)`}} >{`${joinWeather.now.tmp}℃`}</View> :
+                    <View className='weather no'>暂无天气</View>
+                  }
                 </View>
               }
             </View>
