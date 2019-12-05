@@ -1,75 +1,77 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
 import Modal from '@components/modal';
+import { AtProgress } from 'taro-ui';
 import { connect } from '@tarojs/redux';
-import * as acitons from '@store/user/action';
+import * as acitons from '@store/wishes/action';
 
 import './style.less'
 
-@connect(({ user }) => (user), {...acitons})
+@connect(({ wishes }) => (wishes), {...acitons})
 class Allwishes extends Component {
 
   config = {
     navigationBarTitleText: '心愿宝盒'
   }
   state = {
-    showModal: false,
-    wishesList: [
-      {
-        title: '一起去吃河马先生',
-        id: 1
-      },
-      {
-        title: '一起去吃大象先生',
-        id: 2
-      },
-      {
-        title: '一起去吃绵羊小姐',
-        id: 3
-      }
-    ]
+    showModal: false
   }
 
   componentDidShow () {
     
   }
-  toEdit = id => {
-    Taro.navigateTo({
-      url: '/pages/wishes-edit/index?id=' + id
+
+  toEdit = (wishBoxId) => {
+    Taro.showLoading();
+    this.props.dispatchGetDetail({ wishBoxId }).then(() => {
+      Taro.hideLoading();
+      Taro.navigateTo({
+        url: '/pages/wishes-edit/index?id=' + wishBoxId
+      })
     })
   }
-  addWishes = (value) => {
-    const { wishesList } = this.state;
-    if(value.length){
-      wishesList.push({title: value, id: 9});
-      this.setState({ wishesList, showModal: false });
+
+  addWishes = (wishName) => {
+    if(wishName.length){
+      this.props.dispatchSave({ wishName })
     }
   }
+
   showModal = () => {
     this.setState({ showModal: true });
   }
+
   hideModal = () => {
     this.setState({ showModal: false });
   }
 
   render () {
-    const { showModal, wishesList } = this.state;
+    const { showModal } = this.state;
+    const { wishBoxList, wishSuccessNum, wishTotalNum } = this.props;
     return (
       <View className='allwishes'>
         <View className='mask'></View>
         <View className='content-wrap'>
           <View className='progress_wrap'>
             <View className='text'>当前心愿进度：</View>
-            <View className='progress_bar'>
-              <View className='done'>12</View>
-              <View className='total'>99</View>
-            </View>
+            <AtProgress
+              className='progress_bar'
+              percent={wishSuccessNum/wishTotalNum*100}
+              color='#f06292'
+              strokeWidth={10}
+              isHidePercent
+            />
+            <View className='progress'>{wishSuccessNum+ '/' +wishTotalNum}</View>
           </View>
           <View className='list'>
-            { wishesList.map((ele, index) => (
-              <View className='section' key={String(index)} onClick={this.toEdit.bind(this, ele.id)}>
+            { wishBoxList.map((ele, index) => (
+              <View className='section'
+                key={String(index)}
+                style={{backgroundImage: `url(${ele.wishPic})`}}
+                onClick={this.toEdit.bind(this, ele.wishBoxId)}
+              >
                 <View className='mask'></View>
-                <View className='text'>{ele.title}</View>
+                <View className='text'>{ele.wishName}</View>
               </View>
             ))
 

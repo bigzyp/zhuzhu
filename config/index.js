@@ -80,6 +80,7 @@ const config = {
   h5: {
     publicPath: '/',
     staticDirectory: 'statics',
+    esnextModules: ['taro-ui'],
     module: {
       postcss: {
         autoprefixer: {

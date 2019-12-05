@@ -16,18 +16,18 @@ class Index extends Component {
     navigationBarTitleText: '首页'
   }
 
+  componentDidMount(){
+    const { login: isLogin } = this.props;
+    isLogin && this.props.dispatchGetList({ homeDisplay: 1 });
+    this.initWeatherInfo();
+  }
+  
   onShareAppMessage () {
     return {
       title: '发现一个hin好玩的小程序！',
       imageUrl: 'https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/share.jpeg',
       path: 'pages/loading/index'
     }
-  }
-  
-  componentDidShow(){
-    const { login: isLogin } = this.props;
-    isLogin && this.props.dispatchGetList({ homeDisplay: 1 });
-    this.initWeatherInfo();
   }
 
   goAnniversary = () => {
@@ -71,7 +71,7 @@ class Index extends Component {
   }
 
   render () {
-    const { userInfo: { user, joinUser }, anniversaryList, weather: { myWeather, joinWeather } } = this.props;
+    const { userInfo: { user, joinUser }, anniversaryList, weather: { myWeather = {}, joinWeather = {} } } = this.props;
     return (
       <View className='out-wrap'>
         <View className='mask'></View>
@@ -86,11 +86,11 @@ class Index extends Component {
                 }
               </View>
               <View className='top-middle'>
-                { myWeather.now &&
-                  <View className='text left'>{WEATHER_TIPS[Math.floor(myWeather.now.tmp/5)]}</View>
-                }
                 { joinWeather.now &&
                   <View className='text left'>{WEATHER_TIPS[Math.floor(joinWeather.now.tmp/5)]}</View>
+                }
+                { myWeather.now &&
+                  <View className='text right'>{WEATHER_TIPS[Math.floor(myWeather.now.tmp/5)]}</View>
                 }
               </View>
               { joinUser.headPortrait &&
@@ -104,9 +104,9 @@ class Index extends Component {
               }
             </View>
             <ScrollView className='scroll' scrollY>
-              <View className='bottom' onClick={this.goAnniversary}>
+              <View className='bottom'>
               { anniversaryList.map((ele, index) => (
-                <View className='item' key={String(index)}>
+                <View className='item' key={String(index)} onClick={this.goAnniversary} >
                   <View>
                     <View className='title'>{ ele.title }</View>
                     <View className='days'>{ computeDays({ target: ele.commemorationTime, isRepeat: ele.repeatTime }) }</View>

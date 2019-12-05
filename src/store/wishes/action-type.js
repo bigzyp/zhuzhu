@@ -1,0 +1,4 @@
+export const WISHES_LIST = 'WISHES_LIST'
+export const WISHES_DETAIL = 'WISHES_DETAIL'
+export const WISHES_SAVE = 'WISHES_SAVE'
+export const WISHES_UPDATE = 'WISHES_UPDATE'

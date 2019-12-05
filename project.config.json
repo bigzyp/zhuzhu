@@ -75,10 +75,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "编辑心愿",
 					"pathName": "pages/wishes-edit/index",
-					"query": "",
+					"query": "id=1",
 					"scene": null
 				},
 				{
@@ -99,6 +99,13 @@
 					"id": 7,
 					"name": "loading",
 					"pathName": "pages/loading/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "心愿盒",
+					"pathName": "pages/wishes/index",
 					"query": "",
 					"scene": null
 				}
