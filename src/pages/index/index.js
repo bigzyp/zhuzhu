@@ -1,15 +1,16 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, ScrollView } from '@tarojs/components';
+// import { AtButton } from 'taro-ui';
 import { connect } from '@tarojs/redux';
-import { dispatchGetList } from '@store/home/action';
 import { dispatchWeather, dispatchUpdate } from '@store/user/action';
+import { dispatchAnniversaryList } from '@store/home/action';
 import { computeDays } from '@utils/tools';
 import request from '@utils/request';
 import { WEATHER_TIPS } from '@constants/constant';
 
 import './style.less'
 
-@connect(({ user, home }) => ({ ...user, ...home }), { dispatchGetList, dispatchWeather, dispatchUpdate })
+@connect(({ user, home }) => ({ ...user, ...home }), { dispatchWeather, dispatchUpdate, dispatchAnniversaryList })
 class Index extends Component {
 
   config = {
@@ -17,11 +18,9 @@ class Index extends Component {
   }
 
   componentDidMount(){
-    const { login: isLogin } = this.props;
-    isLogin && this.props.dispatchGetList({ homeDisplay: 1 });
     this.initWeatherInfo();
   }
-  
+
   onShareAppMessage () {
     return {
       title: '发现一个hin好玩的小程序！',
@@ -29,6 +28,11 @@ class Index extends Component {
       path: 'pages/loading/index'
     }
   }
+
+  componentDidShow(){
+    this.props.dispatchAnniversaryList({ homeDisplay: 1 });
+  }
+  
 
   goAnniversary = () => {
     Taro.navigateTo({
@@ -72,6 +76,7 @@ class Index extends Component {
 
   render () {
     const { userInfo: { user, joinUser }, anniversaryList, weather: { myWeather = {}, joinWeather = {} } } = this.props;
+    // const { weatherLoading } = this.state;
     return (
       <View className='out-wrap'>
         <View className='mask'></View>
@@ -81,7 +86,13 @@ class Index extends Component {
               <View className='top-left'>
                 <View className='img' style={{backgroundImage: `url(${user.headPortrait || ''})`}}></View>
                 { myWeather.now ?
-                  <View className='weather' style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/cond/${myWeather.now.cond_code}.png)`}} >{`${myWeather.now.tmp}℃`}</View> :
+                  <View 
+                    className='weather' 
+                    style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/cond/${myWeather.now.cond_code}.png)`}} 
+                    onClick={this.getLocation}
+                  >
+                    {`${myWeather.basic.location} ${myWeather.now.tmp}℃`}
+                  </View> :
                   <View className='weather no' onClick={this.getLocation}>获取天气</View>
                 }
               </View>

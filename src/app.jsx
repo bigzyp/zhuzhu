@@ -30,6 +30,7 @@ class App extends Component {
       'pages/anniversary/index',
       'pages/anniversary-edit/index',
       'pages/wishes-edit/index',
+      'pages/wishes-detail/index',
       'pages/login/index',
     ],
     window: {

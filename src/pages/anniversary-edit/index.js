@@ -25,8 +25,9 @@ class AnniversaryEdit extends Component {
     }
   }
   onDateChange = e => {
+    const date = new Date(e.detail.value);
     this.setState({
-      commemorationTime: new Date(e.detail.value)
+      commemorationTime: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
     })
   }
   
@@ -47,6 +48,7 @@ class AnniversaryEdit extends Component {
     const { commemorationDayId } = this.state;
     value.homeDisplay = Number(value.homeDisplay);
     value.repeatTime = Number(value.repeatTime);
+    value.commemorationTime = new Date(value.commemorationTime).getTime();
     Taro.showLoading({
       title: '保存中～'
     })

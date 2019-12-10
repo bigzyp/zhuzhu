@@ -18,22 +18,22 @@ class Allwishes extends Component {
   }
 
   componentDidShow () {
-    
+    this.props.dispatchGetList();
   }
 
   toEdit = (wishBoxId) => {
-    Taro.showLoading();
-    this.props.dispatchGetDetail({ wishBoxId }).then(() => {
-      Taro.hideLoading();
-      Taro.navigateTo({
-        url: '/pages/wishes-edit/index?id=' + wishBoxId
-      })
+    // const url = wishSuccess ? '/pages/wishes-detail/index' : '/pages/wishes-edit/index';
+    Taro.navigateTo({
+      url: `/pages/wishes-edit/index?id=${wishBoxId}`
     })
   }
 
   addWishes = (wishName) => {
     if(wishName.length){
-      this.props.dispatchSave({ wishName })
+      this.props.dispatchSave({ wishName }).then(() => {
+        this.props.dispatchGetList();
+        this.hideModal();
+      })
     }
   }
 
@@ -67,7 +67,7 @@ class Allwishes extends Component {
             { wishBoxList.map((ele, index) => (
               <View className='section'
                 key={String(index)}
-                style={{backgroundImage: `url(${ele.wishPic})`}}
+                style={{backgroundImage: `url(${ele.wishPic.split(',')[0]})`}}
                 onClick={this.toEdit.bind(this, ele.wishBoxId)}
               >
                 <View className='mask'></View>

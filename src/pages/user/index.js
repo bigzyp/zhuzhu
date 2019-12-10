@@ -55,7 +55,7 @@ class Login extends Component {
 
   render () {
     const { statusBarHeight, showGetPhone } = this.state
-    const { userInfo: { user, joinUser }, login } = this.props
+    const { userInfo: { user, joinUser }, login: isLogin } = this.props
     return (
       <View>
         {!!showGetPhone && <GetUserInfo onCancle={this.hideGetPhone} onLoginBack={this.login} />}
@@ -64,7 +64,7 @@ class Login extends Component {
             {/* <Image src='https://oss.aircourses.com/web/ac_write/mine_banner_bg.png' className='mine_banner_bg' /> */}
             <Image src='https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/banner1.jpeg' className='mine_banner_bg' />
         </View>
-        {!login ? 
+        {!isLogin ? 
           <View className='mine_user_info' onClick={this.showGetPhone}>
             <View className='mine_info'>
                 <View className='img_wrap'>
@@ -85,14 +85,16 @@ class Login extends Component {
             </View>
           </View>
         }
-        <View className='mine_item'>
-          <Button className='mine_item_box' openType='share'> 
-            <Image className='icon icon_pass' src='https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/yaoqing.png' />
-            <View className='text'>邀请TA</View>
-          </Button>
-          <View className='icon icon_arrow' />
-        </View>
-        { login && <View className='logout' onClick={this.logout}>退出登录</View> }
+        {!joinUser.userId &&
+          <View className='mine_item'>
+            <Button className='mine_item_box' openType='share'> 
+              <Image className='icon icon_pass' src='https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/yaoqing.png' />
+              <View className='text'>邀请TA</View>
+            </Button>
+            <View className='icon icon_arrow' />
+          </View>
+        }
+        { isLogin && <View className='logout' onClick={this.logout}>退出登录</View> }
       </View>
     )
   }

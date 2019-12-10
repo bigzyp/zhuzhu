@@ -4,7 +4,9 @@ import { USER_UPDATE_WEATHER, USER_LOGIN, USER_INVITE, USER_LOGOUT, USER_UPDATE 
 const _userInfo = Taro.getStorageSync('userInfo');
 const userInfo = {
   user: {},
-  joinUser: {},
+  joinUser: {
+    headPortrait: 'https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/wenhao.png'
+  },
   ..._userInfo
 }
 

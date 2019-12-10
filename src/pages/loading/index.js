@@ -1,23 +1,34 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Image } from '@tarojs/components'
+import Taro, { Component } from '@tarojs/taro';
+import { View, Image } from '@tarojs/components';
+import { connect } from '@tarojs/redux';
+import { dispatchLogin } from '@store/user/action';
 
 import './style.less'
 
+@connect(({ user, home }) => ({ ...user, ...home }), { dispatchLogin })
 class Invite extends Component {
 
   config = {
     navigationBarTitleText: '加载中...'
   }
   componentDidMount(){
-    const userId = Taro.getStorageSync('userId');
     const { refereeId } = this.$router.params;
+    const { login: isLogin } = this.props;
+    if(isLogin){
+      Taro.login({
+        success: (res) => {
+          const { code } = res;
+          this.props.dispatchLogin({ code });
+        }
+      })
+    }
     setTimeout(() => {
       if(refereeId) {
         return Taro.navigateTo({
           url: '/pages/login/index?refereeId='+refereeId
         })
       }
-      if(!userId){
+      if(!isLogin){
         Taro.navigateTo({
           url: '/pages/login/index'
         })
