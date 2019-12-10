@@ -27,7 +27,7 @@ class WishesDetail extends Component {
     const { current } = this.state;
     return {
       title: `“${wishBoxList[current].wishName}”心愿达成～～～`,
-      imageUrl: wishBoxList[current].wishPic,
+      imageUrl: wishBoxList[current].wishPic.split(',')[0],
       path: `pages/wishes-edit/index?id=${wishBoxList[current].wishBoxId}`
     }
   }

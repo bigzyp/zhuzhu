@@ -23,7 +23,7 @@ class Wishes extends Component {
     const { current } = this.state;
     return {
       title: `“${wishesList[current].wishName}”心愿达成～～～`,
-      imageUrl: wishesList[current].wishPic,
+      imageUrl: wishesList[current].wishPic.split(',')[0],
       path: `pages/wishes-edit/index?id=${wishesList[current].wishBoxId}`
     }
   }
@@ -82,7 +82,7 @@ class Wishes extends Component {
           <SwiperItem key={String(index)}>
             <View className='section section1'>
               <View className='box' onClick={this.goEdit.bind(this, ele.wishBoxId)}>
-                <View className='card top' style={{backgroundImage: `url(${ele.wishPic.split(',')[index]})`}}></View>
+                <View className='card top' style={{backgroundImage: `url(${ele.wishPic.split(',')[0]})`}}></View>
                 <View className='text title'>{ele.wishName}</View>
                 <View className='text desc'>{ele.detail}</View>
                 {/* <Image className='btn_status add' src={ele.wishPic} /> */}
