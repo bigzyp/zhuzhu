@@ -108,7 +108,12 @@ class Index extends Component {
                 <View className='top-left'>
                   <View className='img' style={{backgroundImage: `url(${joinUser.headPortrait || ''})`}}></View>
                   { joinWeather.now ?
-                    <View className='weather' style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/cond/${joinWeather.now.cond_code}.png)`}} >{`${joinWeather.now.tmp}℃`}</View> :
+                    <View 
+                      className='weather' 
+                      style={{backgroundImage: `url(https://ac-dev.oss-cn-hangzhou.aliyuncs.com/20190231/test/cond/${joinWeather.now.cond_code}.png)`}} 
+                    >
+                      {`${joinWeather.basic.location} ${joinWeather.now.tmp}℃`}
+                    </View> :
                     <View className='weather no'>暂无天气</View>
                   }
                 </View>
