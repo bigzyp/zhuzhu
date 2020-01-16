@@ -1,11 +1,11 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
-import { dispatchLogin } from '@store/user/action';
+import { dispatchWxLogin } from '@store/user/action';
 
 import './style.less'
 
-@connect(({ user, home }) => ({ ...user, ...home }), { dispatchLogin })
+@connect(({ user, home }) => ({ ...user, ...home }), { dispatchWxLogin })
 class Invite extends Component {
 
   config = {
@@ -18,7 +18,7 @@ class Invite extends Component {
       Taro.login({
         success: (res) => {
           const { code } = res;
-          this.props.dispatchLogin({ code });
+          this.props.dispatchWxLogin({ code });
         }
       })
     }

@@ -32,6 +32,7 @@ class App extends Component {
       'pages/wishes-edit/index',
       'pages/wishes-detail/index',
       'pages/login/index',
+      'pages/login-username/index',
     ],
     window: {
       backgroundTextStyle: 'light',

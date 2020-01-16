@@ -10,7 +10,7 @@ export default class GetUserInfo extends Component {
 	getUserInfo = (e) => {
 		const { userInfo } = e.detail;
 		const { loginOptions = {} } = this.props;
-		let loginFn =  this.props.dispatchLogin;
+		let loginFn =  this.props.dispatchWxLogin;
 		if(loginOptions.refereeId) loginFn = this.props.dispatchInvite;
 		Taro.showLoading({
 			title: '登录中...'

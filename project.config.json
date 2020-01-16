@@ -108,6 +108,13 @@
 					"pathName": "pages/wishes/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 9,
+					"name": "账号登录",
+					"pathName": "pages/login-username/index",
+					"query": "id=1",
+					"scene": null
 				}
 			]
 		}

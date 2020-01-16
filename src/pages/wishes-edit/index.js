@@ -4,6 +4,7 @@ import Modal from '@components/modal';
 import { connect } from '@tarojs/redux';
 import * as actions from '@store/wishes/action';
 import { HOST_OSS, API_UPLOAD } from '@constants/api';
+import dayjs from 'dayjs';
 
 import './style.less'
 
@@ -42,7 +43,7 @@ class WishesEdit extends Component {
   onDateChange = e => {
     const date = new Date(e.detail.value);
     this.setState({
-      wishTime: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+      wishTime: new Date(date).getTime()
     })
   }
 
@@ -67,7 +68,7 @@ class WishesEdit extends Component {
           value.homeDisplay = Number(value.homeDisplay);
           value.wishSuccess = Number(value.wishSuccess);
           value.state = value.state? 3 : 1;
-          value.wishTime = new Date(value.wishTime).getTime();
+          value.wishTime = dayjs(value.wishTime).format('YYYY-MM-DD');
           this.props.dispatchUpdate({ wishBoxId, ...value }).then(() => {
             Taro.navigateBack();
           });
@@ -137,7 +138,7 @@ class WishesEdit extends Component {
       wishSuccess,
       state
     } = this.state;
-    const date = new Date(wishTime);
+    const date = dayjs(wishTime).format('YYYY-MM-DD');
     return (
       <View className='wishes-edit'>
         <Form onSubmit={this.formSubmit} >
@@ -164,9 +165,9 @@ class WishesEdit extends Component {
             </View>
             <View className='item flex'>
               <View className='label'>啥时候完成der</View>
-              <Picker name='wishDate' mode='date' onChange={this.onDateChange}>
+              <Picker name='wishTime' mode='date' value={date} onChange={this.onDateChange}>
                 <View className='picker'>
-                  { `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}` }
+                  {date}
                 </View>
               </Picker>
             </View>

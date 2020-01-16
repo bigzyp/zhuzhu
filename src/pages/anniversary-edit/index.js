@@ -4,6 +4,7 @@ import Modal from '@components/modal';
 import { connect } from '@tarojs/redux';
 import * as actions from '@store/anniversary/action';
 import { ANNIVERSARY_TYPE } from '@constants/constant';
+import dayjs from 'dayjs';
 
 import './style.less'
 
@@ -20,14 +21,13 @@ class AnniversaryEdit extends Component {
     this.state = {
       showModal: false,
       dayType: 0,
-      commemorationTime: '2019-01-01',
       ...anniversaryDetail[commemorationDayId]
     }
   }
   onDateChange = e => {
     const date = new Date(e.detail.value);
     this.setState({
-      commemorationTime: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+      commemorationTime: new Date(date).getTime()
     })
   }
   
@@ -48,7 +48,7 @@ class AnniversaryEdit extends Component {
     const { commemorationDayId } = this.state;
     value.homeDisplay = Number(value.homeDisplay);
     value.repeatTime = Number(value.repeatTime);
-    value.commemorationTime = new Date(value.commemorationTime).getTime();
+    value.commemorationTime = dayjs(value.commemorationTime).format('YYYY-MM-DD');
     Taro.showLoading({
       title: '保存中～'
     })
@@ -87,7 +87,7 @@ class AnniversaryEdit extends Component {
       commemorationDayId,
       showModal
     } = this.state;
-    const date = new Date(commemorationTime);
+    const date = dayjs(commemorationTime).format('YYYY-MM-DD');
     return (
       <View className='anniversary-edit'>
         <Form onSubmit={this.formSubmit} >
@@ -95,10 +95,8 @@ class AnniversaryEdit extends Component {
           <View className='item-wrap'>
             <View className='item'>
               <View className='label'>日期</View>
-              <Picker name='commemorationTime' mode='date' onChange={this.onDateChange}>
-                <View className='picker'>
-                  { `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}` }
-                </View>
+              <Picker name='commemorationTime' mode='date' value={date} onChange={this.onDateChange}>
+                <View className='picker'>{date}</View>
               </Picker>
             </View>
             <View className='item'>
