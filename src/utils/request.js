@@ -1,5 +1,13 @@
+/*
+ * @Author: zengyangping
+ * @Date: 2019-10-29 15:36:31
+ * @LastEditors: zengyangping
+ * @LastEditTime: 2020-01-16 13:42:45
+ * @Description: 
+ * @FilePath: /zhuzhutool/src/utils/request.js
+ */
 import Taro from '@tarojs/taro'
-import { API_USER_LOGIN } from '@constants/api'
+import { API_USER_LOGIN, API_USER_LOGIN_TEST } from '@constants/api'
 
 const CODE_SUCCESS = '200'
 const CODE_AUTH_EXPIRED = '600'
@@ -53,7 +61,7 @@ export default async function request(options) {
       return Promise.reject(res.data)
     }
 
-    if (url === API_USER_LOGIN) {
+    if (url === API_USER_LOGIN || url === API_USER_LOGIN_TEST) {
       await updateStorage(data)
     }
 
